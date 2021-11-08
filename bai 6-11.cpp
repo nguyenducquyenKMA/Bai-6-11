@@ -1,6 +1,6 @@
 #include "stdio.h"
 int a[100],b[100],c[100];
-int n,m;
+int n,m,p;
 void nhapMang(int x[100], int &n){
 	printf("Nhap vao so luong phan tu: ");
 	scanf("%d", &n);
@@ -38,8 +38,7 @@ void thucHienTimKiem(int x[100], int n){
 		printf("Khong tim thay!");
 	}	
 }
-int kiemtrachan(int x[], int n)
-{
+int kiemtrachan(int x[], int n){
 	for( int i=0;i<n;i++)
 		if(x[i]%2!=0)
 		{
@@ -48,8 +47,7 @@ int kiemtrachan(int x[], int n)
 		}
 	return 1;
 }
-int kiemtrale(int x[], int n)
-{
+int kiemtrale(int x[], int n){
 	for( int i=0;i<n;i++)
 		if(x[i]%2==0)
 		{
@@ -58,6 +56,37 @@ int kiemtrale(int x[], int n)
 		}
 	return 1;
 }
+void gopmang(int a[],int n,int b[],int m,int c[],int &p){
+ p=n+m; 
+ for(int i=0;i<p;i++)
+  {
+   if(i<n) 
+     c[i]=a[i];
+   else c[i]=b[i-n];  
+  }
+}
+void TachMang(int a[], int b[], int c[], int &n, int &m, int &p)
+{
+	printf("\nNhap vao so phan tu muon tach vao mang B[] =  ");
+	scanf("%d",&m);
+	printf("Nhap vao so phan tu muon tach vao mang C[] =  ");
+	scanf("%d",&p);
+	int j=0;
+	for (int i=0; i<n; i++)
+	{
+		if ( i < m)
+		{
+			b[i]=a[i];
+		}
+		else 
+		{
+			c[j]=a[i];
+			j++;
+		}
+	}
+	return;
+}
+
 int timMin(int x[], int n){
 	int min = x[0];
 	for(int i=1; i<n; i++){
@@ -173,6 +202,7 @@ void themVaoViTriK(int x[100], int &n){
 	x[k]=m;
 
 }
+
 void suaphantu(int x[100],int n){
 	int vitri,sua;
 	printf("\nNhap vao vitri can sua: ");
@@ -186,20 +216,30 @@ int main(){
 	xuatMang(a, n);
 	printf("\n");
 	thucHienTimKiem(a, n);
-    if( kiemtrachan(a,n)==-1){
+        if( kiemtrachan(a,n)==-1){
     	printf("\n");
-    	printf("\nMang khong toan chan");
+    	printf("\nMang khong toan chan\n");
 	}else{
 		printf("\n");
-		printf("\nMang toan la so chan");
+		printf("\nMang toan la so chan\n");
 	}
 	if( kiemtrale(a,n)==-1){
     	printf("\n");
-    	printf("\n Mang khong toan le");
+    	printf("\n Mang khong toan le\n");
 	}else{
 		printf("\n");
-		printf("\nMang toan la so le");
+		printf("\nMang toan la so le\n");
 	}
+	printf("\n");
+	printf("Tach Mang");
+	TachMang(a,b,c,n,m,p);
+        xuatMang(b,m);
+        printf("\n");
+        xuatMang(c,p);
+        printf("\n");
+        printf("\nGop Mang\n");
+        gopmang(a,n,b,m,c,p);
+        xuatMang(c,p);
 	printf("\n");
 	printf("\n Max = %d", timMax(a, n));
 	printf("\n Min = %d", timMin(a, n));
@@ -221,8 +261,8 @@ int main(){
 	printf("\n");
 	themVaoViTriK(a, n);
 	xuatMang(a, n);
-    printf("\n");
-    suaphantu(a,n);
+        printf("\n");
+        suaphantu(a,n);
 	xuatMang(a, n);	
 	printf("\n");
 }
